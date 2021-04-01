@@ -1,7 +1,7 @@
 FROM debian:buster as builder
 MAINTAINER Camptocamp "info@camptocamp.com"
 
-ENV MAPCACHE_VERSION=master
+ENV MAPCACHE_VERSION=247_mixed
 
 RUN apt-get update && \
     apt-get install --assume-yes --no-install-recommends ca-certificates git cmake build-essential \
@@ -13,7 +13,7 @@ RUN mkdir /build && \
     mkdir /etc/mapcache && \
     ln --symbolic /etc/mapcache /mapcache && \
     cd /build && \
-    git clone https://github.com/mapserver/mapcache.git && \
+    git clone https://github.com/jachym/mapcache.git && \
     cd /build/mapcache && \
     git checkout ${MAPCACHE_VERSION} && \
     mkdir /build/mapcache/build && \
@@ -26,7 +26,7 @@ RUN mkdir /build && \
     rm -Rf /build
 
 FROM debian:buster as runner
-LABEL maintainer="info@camptocamp.com"
+LABEL maintainer="info@opengeolabs.cz"
 
 ENV APACHE_CONFDIR=/etc/apache2 \
     APACHE_RUN_USER=www-data \
